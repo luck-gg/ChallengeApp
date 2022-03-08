@@ -3,15 +3,21 @@ package com.example.challengeapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.challengeapp.data.model.MatchModel
-import com.example.challengeapp.data.model.MatchProvider
+import com.example.challengeapp.domain.GetMatchUseCase
 
-class MatchViewModel:ViewModel()  {
+class MatchViewModel: ViewModel()  {
 
-    val matchModel = MutableLiveData<MatchModel>()
+    val matchModel = MutableLiveData<MatchModel?>()
+
+    var getRandomModelUseCase = GetMatchUseCase()
 
     fun randomMatch(){
-        val getMatch : MatchModel = MatchProvider.quotes.random()
+        val match = getRandomModelUseCase()
 
-        matchModel.postValue(getMatch)
+        if(match!=null){
+            matchModel.postValue(match)
+        }
+
     }
 }
+

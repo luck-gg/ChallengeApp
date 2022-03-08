@@ -4,18 +4,21 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.challengeapp.data.model.MatchModel
 import com.example.challengeapp.ui.screens.DetailScreen
 import com.example.challengeapp.ui.screens.HomeScreen
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(viewModel: MatchModel?) {
     val navController= rememberNavController()
     NavHost(navController = navController, startDestination = AppScreen.HomeScreen.route){
         composable(route = AppScreen.HomeScreen.route){
-            HomeScreen(navController)
+            HomeScreen(navController, viewModel)
         }
         composable(route = AppScreen.DetailScreen.route){
-            DetailScreen(navController)
+            if (viewModel != null) {
+                DetailScreen(navController, viewModel)
+            }
         }
     }
 

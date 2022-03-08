@@ -7,10 +7,10 @@ import com.example.challengeapp.data.model.MatchProvider
 class GetMatchUseCase {
 
     operator fun invoke():MatchModel?{
-        val quotes = MatchProvider.quotes
-        if(!quotes.isNullOrEmpty()){
-            val randomNumber = (quotes.indices).random()
-            return quotes[randomNumber]
+        val matches = MatchProvider.matches
+        if(!matches.isNullOrEmpty()){
+            val randomNumber = (matches.indices).random()
+            return matches[randomNumber]
         }
         return null
     }
