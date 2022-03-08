@@ -1,4 +1,4 @@
-package com.example.challengeapp.model
+package com.example.challengeapp.data.model
 
 data class MatchModel(
     val homeTeam: String,
