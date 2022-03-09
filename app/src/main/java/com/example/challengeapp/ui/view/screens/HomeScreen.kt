@@ -1,4 +1,4 @@
-package com.example.challengeapp.ui.screens
+package com.example.challengeapp.ui.view.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

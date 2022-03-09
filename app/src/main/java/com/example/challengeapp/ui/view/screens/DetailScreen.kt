@@ -1,7 +1,8 @@
-package com.example.challengeapp.ui.screens
+package com.example.challengeapp.ui.view.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -23,12 +24,14 @@ fun DetailScreen(
     navController: NavController,
     model: MatchViewModel = viewModel()
 ) {
+
     val matchData by model.matchModelLiveData.observeAsState()
-    val homeTeam : String = (matchData?.homeTeam).toString()
+    model.randomMatch()
+    val homeTeam = matchData?.awayTeam
 
     Scaffold(topBar = {
         TopAppBar {
-            androidx.compose.material.Icon(imageVector = Icons.Default.ArrowBack,
+            Icon(imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Volver",
             modifier = Modifier.clickable(){
                 navController.popBackStack()
@@ -38,7 +41,9 @@ fun DetailScreen(
         }
     }
     ) {
-        BodyContentDetail(homeTeam)
+        if (homeTeam != null) {
+            BodyContentDetail(homeTeam)
+        }
     }
 }
 
