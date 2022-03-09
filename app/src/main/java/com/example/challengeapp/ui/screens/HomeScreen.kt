@@ -11,12 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.challengeapp.data.model.MatchModel
 import com.example.challengeapp.ui.navigation.AppScreen
 
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: MatchModel?){
+fun HomeScreen(navController: NavController){
     Scaffold(topBar = {
         TopAppBar {
             Text(text = "SpursApp")

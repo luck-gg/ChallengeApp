@@ -8,19 +8,23 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.challengeapp.data.model.MatchModel
+import com.example.challengeapp.ui.viewmodel.MatchViewModel
 
 
 @Composable
 fun DetailScreen(
     navController: NavController,
-    view_model: MatchModel
-){
-    var homeTeam: String = view_model.homeTeam
+    model: MatchViewModel = viewModel()
+) {
+    val matchData by model.matchModelLiveData.observeAsState()
+    val homeTeam : String = (matchData?.homeTeam).toString()
 
     Scaffold(topBar = {
         TopAppBar {
@@ -34,12 +38,12 @@ fun DetailScreen(
         }
     }
     ) {
-        BodyContentDetail(navController, homeTeam)
+        BodyContentDetail(homeTeam)
     }
 }
 
 @Composable
-fun BodyContentDetail(navController: NavController, homeTeam: String) {
+fun BodyContentDetail(homeTeam: String) {
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
