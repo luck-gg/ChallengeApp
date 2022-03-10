@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.challengeapp.data.model.MatchModel
 import com.example.challengeapp.ui.viewmodel.MatchViewModel
 
 
@@ -24,10 +25,9 @@ fun DetailScreen(
     navController: NavController,
     model: MatchViewModel = viewModel()
 ) {
-
-    val matchData by model.matchModelLiveData.observeAsState()
     model.randomMatch()
-    val homeTeam = matchData?.awayTeam
+    val matchData by model.matchModelLiveData.observeAsState()
+
 
     Scaffold(topBar = {
         TopAppBar {
@@ -41,19 +41,35 @@ fun DetailScreen(
         }
     }
     ) {
-        if (homeTeam != null) {
-            BodyContentDetail(homeTeam)
-        }
+        BodyContentDetail(matchData)
+
     }
 }
 
 @Composable
-fun BodyContentDetail(homeTeam: String) {
+fun BodyContentDetail(matchData: MatchModel?) {
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Estos son los resultados de los San Antonio Spurs")
-        Text(homeTeam)
+        Row(horizontalArrangement = Arrangement.Center) {
+            Text(text = "Local")
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = "Visitante")
+        }
+        if (matchData != null) {
+            Row(horizontalArrangement = Arrangement.Center) {
+                Text(matchData.homeTeam)
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(matchData.awayTeam)
+            }
+            Row(horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically) {
+                Text(matchData.homeScore.toString())
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(matchData.awayScore.toString())
+            }
+        }
     }
 }
